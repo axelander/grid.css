@@ -1,6 +1,6 @@
-/* This is the root grid framework. */
-
-/*== BASE ====*/
+/* ===========================================================
+  BASE
+=========================================================== */
 // Set global box-sizing to border-box, this is not an option!
 *, *:before, *:after {
   -moz-box-sizing: border-box; 
@@ -9,7 +9,9 @@
 }
 
 
-/*== OPTIONS ====*/
+/* ===========================================================
+  OPTIONS
+=========================================================== */
 $grid-max-width   : 1240px !default; // The grid width, including gutter
 // Gutters
 $s-gutter-width   : 20px !default;
@@ -20,20 +22,18 @@ $l-gutter-width   : $m-gutter-width !default;
 $column-count     : 12 !default;
 
 // Transitions
-$transitions      : true !default;
+$transitions      : false !default;
 
-/* ===========================================================
-  SIZES
-=========================================================== */
+// Map of sizes
 $sizes: 
   (
     "screen and (min-width: 640px)",  // Media query
-    m,                                // Shorthand
+    m,                                // Prefix
     20px                              // Gutter
   ),
   (
     "screen and (min-width: 768px)",  // Media query
-    l,                                // Shorthand
+    l,                                // Prefix
     20px                              // Gutter
   ) !default;
 
@@ -84,7 +84,11 @@ $sizes:
 }
 
 // Create all different sizes
-@each $query, $shorthand, $gutter in $sizes {
+@each $size in $sizes {
+  $query: nth($size, 1);
+  $prefix: nth($size, 2);
+  $gutter: nth($size, 3);
+
   @media #{$query} {
     [class*="col-"] {
       padding-left: floor($gutter / 2);
@@ -93,7 +97,7 @@ $sizes:
 
     // Columns for size
     @for $i from 1 through $column-count {
-      .col-#{$shorthand}-#{$i}-#{$column-count} {
+      .col-#{$prefix}-#{$i}-#{$column-count} {
         width: percentage($i / $column-count);
       }  
     } 
