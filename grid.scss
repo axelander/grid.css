@@ -1,0 +1,100 @@
+/* This is the root grid framework. */
+
+/*== BASE ====*/
+// Set global box-sizing to border-box, this is not an option!
+*, *:before, *:after {
+  -moz-box-sizing: border-box; 
+  -webkit-box-sizing: border-box; 
+  box-sizing: border-box;
+}
+
+
+/*== OPTIONS ====*/
+$grid-max-width   : 1240px !default; // The grid width, including gutter
+// Gutters
+$s-gutter-width   : 20px !default;
+$m-gutter-width   : $s-gutter-width !default;
+$l-gutter-width   : $m-gutter-width !default;
+
+// Columns
+$column-count     : 12 !default;
+
+// Transitions
+$transitions      : true !default;
+
+
+/* ===========================================================
+  COMMON
+=========================================================== */
+.row {
+  margin: 0 auto;
+  max-width: $grid-max-width;
+  clear: both;
+}
+
+[class*="col-"] {
+  float: left;
+  padding-left: floor($s-gutter-width / 2);
+  padding-right: floor($s-gutter-width / 2);
+  display: block;
+}
+
+// Reset nested rows
+.row > [class*="col-"] > .row {
+  margin-left: ceil(-$s-gutter-width / 2);
+  margin-right: ceil(-$s-gutter-width / 2);
+}
+
+/* ===========================================================
+  SMALL SCREENS
+=========================================================== */
+// Setup small columns (default columns)
+@for $i from 1 through $column-count {
+  .col-#{$i}-#{$column-count} {
+    width: percentage($i / $column-count);
+  }  
+}
+
+/* ===========================================================
+  MEDIUM SCREENS
+=========================================================== */
+@media screen and (min-width: 640px) {
+  [class*="col-"] {
+    padding-left: floor($m-gutter-width / 2);
+    padding-right: floor($m-gutter-width / 2);
+  }
+  // Setup small columns
+  @for $i from 1 through $column-count {
+    .col-m-#{$i}-#{$column-count} {
+      width: percentage($i / $column-count);
+    }  
+  }  
+}
+
+/* ===========================================================
+  LARGE SCREENS
+=========================================================== */
+@media screen and (min-width: 768px) {
+  [class*="col-"] {
+    padding-left: floor($l-gutter-width / 2);
+    padding-right: floor($l-gutter-width / 2);
+  }
+  // Setup small columns
+  @for $i from 1 through $column-count {
+    .col-l-#{$i}-#{$column-count} {
+      width: percentage($i / $column-count);
+    }  
+  }  
+}
+
+/* ===========================================================
+  TRANSITIONS
+=========================================================== */
+@if($transitions) {
+  [class*="col-"] {
+    -webkit-transition: all 0.3s linear;
+    -moz-transition: all 0.3s linear;
+    -o-transition: all 0.3s linear;
+    transition: all 0.3s linear;
+  }
+}
