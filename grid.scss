@@ -22,6 +22,34 @@ $column-count     : 12 !default;
 // Transitions
 $transitions      : true !default;
 
+/* ===========================================================
+  SIZES
+=========================================================== */
+$sizes: 
+  (
+    "screen and (min-width: 640px)",  // Media query
+    m,                                // Shorthand
+    20px                              // Gutter
+  ),
+  (
+    "screen and (min-width: 768px)",  // Media query
+    l,                                // Shorthand
+    20px                              // Gutter
+  ) !default;
+
+
+
+/* ===========================================================
+  TRANSITIONS
+=========================================================== */
+@if($transitions) {
+  [class*="col-"] {
+    -webkit-transition: all 0.3s linear;
+    -moz-transition: all 0.3s linear;
+    -o-transition: all 0.3s linear;
+    transition: all 0.3s linear;
+  }
+}
 
 /* ===========================================================
   COMMON
@@ -46,55 +74,28 @@ $transitions      : true !default;
 }
 
 /* ===========================================================
-  SMALL SCREENS
+  SIZES
 =========================================================== */
-// Setup small columns (default columns)
+// Setup default columns (smallest screens)
 @for $i from 1 through $column-count {
   .col-#{$i}-#{$column-count} {
     width: percentage($i / $column-count);
   }  
 }
 
-/* ===========================================================
-  MEDIUM SCREENS
-=========================================================== */
-@media screen and (min-width: 640px) {
-  [class*="col-"] {
-    padding-left: floor($m-gutter-width / 2);
-    padding-right: floor($m-gutter-width / 2);
-  }
-  // Setup small columns
-  @for $i from 1 through $column-count {
-    .col-m-#{$i}-#{$column-count} {
-      width: percentage($i / $column-count);
-    }  
-  }  
-}
+// Create all different sizes
+@each $query, $shorthand, $gutter in $sizes {
+  @media #{$query} {
+    [class*="col-"] {
+      padding-left: floor($gutter / 2);
+      padding-right: floor($gutter / 2);  
+    }
 
-/* ===========================================================
-  LARGE SCREENS
-=========================================================== */
-@media screen and (min-width: 768px) {
-  [class*="col-"] {
-    padding-left: floor($l-gutter-width / 2);
-    padding-right: floor($l-gutter-width / 2);
-  }
-  // Setup small columns
-  @for $i from 1 through $column-count {
-    .col-l-#{$i}-#{$column-count} {
-      width: percentage($i / $column-count);
-    }  
-  }  
-}
-
-/* ===========================================================
-  TRANSITIONS
-=========================================================== */
-@if($transitions) {
-  [class*="col-"] {
-    -webkit-transition: all 0.3s linear;
-    -moz-transition: all 0.3s linear;
-    -o-transition: all 0.3s linear;
-    transition: all 0.3s linear;
-  }
+    // Columns for size
+    @for $i from 1 through $column-count {
+      .col-#{$shorthand}-#{$i}-#{$column-count} {
+        width: percentage($i / $column-count);
+      }  
+    } 
+  } 
 }
