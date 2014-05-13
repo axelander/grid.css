@@ -10,15 +10,6 @@
   OPTIONS
 =========================================================== */
 /* ===========================================================
-  TRANSITIONS
-=========================================================== */
-[class*="col-"] {
-  -webkit-transition: all 0.3s linear;
-  -moz-transition: all 0.3s linear;
-  -o-transition: all 0.3s linear;
-  transition: all 0.3s linear; }
-
-/* ===========================================================
   COMMON
 =========================================================== */
 .row {
@@ -42,38 +33,86 @@
 .col-1-12 {
   width: 8.33333%; }
 
+@media screen and (max-width: 640px) {
+  .hide {
+    display: none; } }
+
 .col-2-12 {
   width: 16.66667%; }
+
+@media screen and (max-width: 640px) {
+  .hide {
+    display: none; } }
 
 .col-3-12 {
   width: 25%; }
 
+@media screen and (max-width: 640px) {
+  .hide {
+    display: none; } }
+
 .col-4-12 {
   width: 33.33333%; }
+
+@media screen and (max-width: 640px) {
+  .hide {
+    display: none; } }
 
 .col-5-12 {
   width: 41.66667%; }
 
+@media screen and (max-width: 640px) {
+  .hide {
+    display: none; } }
+
 .col-6-12 {
   width: 50%; }
+
+@media screen and (max-width: 640px) {
+  .hide {
+    display: none; } }
 
 .col-7-12 {
   width: 58.33333%; }
 
+@media screen and (max-width: 640px) {
+  .hide {
+    display: none; } }
+
 .col-8-12 {
   width: 66.66667%; }
+
+@media screen and (max-width: 640px) {
+  .hide {
+    display: none; } }
 
 .col-9-12 {
   width: 75%; }
 
+@media screen and (max-width: 640px) {
+  .hide {
+    display: none; } }
+
 .col-10-12 {
   width: 83.33333%; }
+
+@media screen and (max-width: 640px) {
+  .hide {
+    display: none; } }
 
 .col-11-12 {
   width: 91.66667%; }
 
+@media screen and (max-width: 640px) {
+  .hide {
+    display: none; } }
+
 .col-12-12 {
   width: 100%; }
+
+@media screen and (max-width: 640px) {
+  .hide {
+    display: none; } }
 
 @media screen and (min-width: 640px) {
   [class*="col-"] {
@@ -102,7 +141,13 @@
   .col-m-11-12 {
     width: 91.66667%; }
   .col-m-12-12 {
-    width: 100%; } }
+    width: 100%; }
+  .hide-for-m-up {
+    display: none !important; } }
+
+@media screen and (min-width: 640px) and (max-width: 767px) {
+  .hide-for-m {
+    display: none !important; } }
 
 @media screen and (min-width: 768px) {
   [class*="col-"] {
@@ -131,4 +176,10 @@
   .col-l-11-12 {
     width: 91.66667%; }
   .col-l-12-12 {
-    width: 100%; } }
+    width: 100%; }
+  .hide-for-l-up {
+    display: none !important; } }
+
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+  .hide-for-l {
+    display: none !important; } }

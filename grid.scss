@@ -21,35 +21,21 @@ $l-gutter-width   : $m-gutter-width !default;
 // Columns
 $column-count     : 12 !default;
 
-// Transitions
-$transitions      : false !default;
-
 // Map of sizes
 $sizes: 
   (
-    "screen and (min-width: 640px)",  // Media query
+    640px,                            // Min-width
+    767px,                            // Max-width
     m,                                // Prefix
     20px                              // Gutter
   ),
   (
-    "screen and (min-width: 768px)",  // Media query
+    768px,                            // Min-width
+    1023px,                           // Max-width
     l,                                // Prefix
     20px                              // Gutter
   ) !default;
 
-
-
-/* ===========================================================
-  TRANSITIONS
-=========================================================== */
-@if($transitions) {
-  [class*="col-"] {
-    -webkit-transition: all 0.3s linear;
-    -moz-transition: all 0.3s linear;
-    -o-transition: all 0.3s linear;
-    transition: all 0.3s linear;
-  }
-}
 
 /* ===========================================================
   COMMON
@@ -80,16 +66,25 @@ $sizes:
 @for $i from 1 through $column-count {
   .col-#{$i}-#{$column-count} {
     width: percentage($i / $column-count);
+  }
+
+  // Hide for default
+  $smallest: nth($sizes, 1);
+  @media screen and (max-width: #{nth($smallest, 1)}) {
+    .hide {
+      display: none;
+    }
   }  
 }
 
 // Create all different sizes
 @each $size in $sizes {
-  $query: nth($size, 1);
-  $prefix: nth($size, 2);
-  $gutter: nth($size, 3);
+  $min-width: nth($size, 1);
+  $max-width: nth($size, 2);
+  $prefix: nth($size, 3);
+  $gutter: nth($size, 4);
 
-  @media #{$query} {
+  @media screen and (min-width: #{$min-width}) {
     [class*="col-"] {
       padding-left: floor($gutter / 2);
       padding-right: floor($gutter / 2);  
@@ -100,6 +95,18 @@ $sizes:
       .col-#{$prefix}-#{$i}-#{$column-count} {
         width: percentage($i / $column-count);
       }  
-    } 
+    }
+    
+    // Hide for size and up
+    .hide-for-#{$prefix}-up {
+      display: none !important;
+    }
   } 
+  
+  // Hide for specific size
+  @media screen and (min-width: #{$min-width}) and (max-width: #{$max-width}) {
+    .hide-for-#{$prefix} {
+      display: none !important;
+    }
+  }
 }
