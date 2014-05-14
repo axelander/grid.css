@@ -52,7 +52,7 @@ $sizes:
     } @else {
       $str: #{$prefix}-#{$i};
     }
-    [class*="col-"].offset-#{$str} {
+    [class^="col-"].offset-#{$str} {
       margin-left: percentage($i / $column-count);
     }
   }
@@ -100,7 +100,7 @@ $sizes:
   padding-right: floor($default-gutter / 2);
 }
 
-[class*="col-"] {
+[class^="col-"] {
   float: left;
   padding-left: floor($default-gutter / 2);
   padding-right: floor($default-gutter / 2);
@@ -109,11 +109,13 @@ $sizes:
 }
 
 // Reset nested rows
-.row > [class*="col-"] > .row {
+.row > [class^="col-"] > .row {
   margin-left: -$default-gutter;
   margin-right: -$default-gutter;
 }
 
+// This is a just precaution. Handles rows within rows
+// that are not wrapped in a column.
 .row > .row {
   margin-left: -$default-gutter;
   margin-right: -$default-gutter; 
@@ -153,7 +155,7 @@ $max-width: #{nth($smallest, 1) - 1};
     }
 
     // Reset nested rows
-    .row > [class*="col-"] > .row {
+    .row > [class^="col-"] > .row {
       margin-left: -$gutter;
       margin-right: -$gutter;
     }
@@ -163,7 +165,7 @@ $max-width: #{nth($smallest, 1) - 1};
       margin-right: -$default-gutter; 
     }
 
-    [class*="col-"] {
+    [class^="col-"] {
       padding-left: floor($gutter / 2);
       padding-right: floor($gutter / 2);  
     }

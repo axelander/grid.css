@@ -34,14 +34,14 @@
   padding-left: 5px;
   padding-right: 5px; }
 
-[class*="col-"] {
+[class^="col-"] {
   float: left;
   padding-left: 5px;
   padding-right: 5px;
   display: block;
   width: 100%; }
 
-.row > [class*="col-"] > .row {
+.row > [class^="col-"] > .row {
   margin-left: -10px;
   margin-right: -10px; }
 
@@ -88,29 +88,29 @@
 @media screen and (max-width: 640px) {
   .hide {
     display: none; }
-  [class*="col-"].offset-1 {
+  [class^="col-"].offset-1 {
     margin-left: 8.33333%; }
-  [class*="col-"].offset-2 {
+  [class^="col-"].offset-2 {
     margin-left: 16.66667%; }
-  [class*="col-"].offset-3 {
+  [class^="col-"].offset-3 {
     margin-left: 25%; }
-  [class*="col-"].offset-4 {
+  [class^="col-"].offset-4 {
     margin-left: 33.33333%; }
-  [class*="col-"].offset-5 {
+  [class^="col-"].offset-5 {
     margin-left: 41.66667%; }
-  [class*="col-"].offset-6 {
+  [class^="col-"].offset-6 {
     margin-left: 50%; }
-  [class*="col-"].offset-7 {
+  [class^="col-"].offset-7 {
     margin-left: 58.33333%; }
-  [class*="col-"].offset-8 {
+  [class^="col-"].offset-8 {
     margin-left: 66.66667%; }
-  [class*="col-"].offset-9 {
+  [class^="col-"].offset-9 {
     margin-left: 75%; }
-  [class*="col-"].offset-10 {
+  [class^="col-"].offset-10 {
     margin-left: 83.33333%; }
-  [class*="col-"].offset-11 {
+  [class^="col-"].offset-11 {
     margin-left: 91.66667%; }
-  [class*="col-"].offset-12 {
+  [class^="col-"].offset-12 {
     margin-left: 100%; } }
 
 /* ===========================================================
@@ -120,13 +120,13 @@
   .row {
     padding-left: 5px;
     padding-right: 5px; }
-  .row > [class*="col-"] > .row {
+  .row > [class^="col-"] > .row {
     margin-left: -10px;
     margin-right: -10px; }
   .row > .row {
     margin-left: -10px;
     margin-right: -10px; }
-  [class*="col-"] {
+  [class^="col-"] {
     padding-left: 5px;
     padding-right: 5px; }
   .col-md-1 {
@@ -159,42 +159,42 @@
 @media screen and (min-width: 641px) and (max-width: 768px) {
   .hide-for-md {
     display: none !important; }
-  [class*="col-"].offset-md-1 {
+  [class^="col-"].offset-md-1 {
     margin-left: 8.33333%; }
-  [class*="col-"].offset-md-2 {
+  [class^="col-"].offset-md-2 {
     margin-left: 16.66667%; }
-  [class*="col-"].offset-md-3 {
+  [class^="col-"].offset-md-3 {
     margin-left: 25%; }
-  [class*="col-"].offset-md-4 {
+  [class^="col-"].offset-md-4 {
     margin-left: 33.33333%; }
-  [class*="col-"].offset-md-5 {
+  [class^="col-"].offset-md-5 {
     margin-left: 41.66667%; }
-  [class*="col-"].offset-md-6 {
+  [class^="col-"].offset-md-6 {
     margin-left: 50%; }
-  [class*="col-"].offset-md-7 {
+  [class^="col-"].offset-md-7 {
     margin-left: 58.33333%; }
-  [class*="col-"].offset-md-8 {
+  [class^="col-"].offset-md-8 {
     margin-left: 66.66667%; }
-  [class*="col-"].offset-md-9 {
+  [class^="col-"].offset-md-9 {
     margin-left: 75%; }
-  [class*="col-"].offset-md-10 {
+  [class^="col-"].offset-md-10 {
     margin-left: 83.33333%; }
-  [class*="col-"].offset-md-11 {
+  [class^="col-"].offset-md-11 {
     margin-left: 91.66667%; }
-  [class*="col-"].offset-md-12 {
+  [class^="col-"].offset-md-12 {
     margin-left: 100%; } }
 
 @media screen and (min-width: 769px) {
   .row {
     padding-left: 10px;
     padding-right: 10px; }
-  .row > [class*="col-"] > .row {
+  .row > [class^="col-"] > .row {
     margin-left: -20px;
     margin-right: -20px; }
   .row > .row {
     margin-left: -10px;
     margin-right: -10px; }
-  [class*="col-"] {
+  [class^="col-"] {
     padding-left: 10px;
     padding-right: 10px; }
   .col-lg-1 {
@@ -227,42 +227,42 @@
 @media screen and (min-width: 769px) and (max-width: 1024px) {
   .hide-for-lg {
     display: none !important; }
-  [class*="col-"].offset-lg-1 {
+  [class^="col-"].offset-lg-1 {
     margin-left: 8.33333%; }
-  [class*="col-"].offset-lg-2 {
+  [class^="col-"].offset-lg-2 {
     margin-left: 16.66667%; }
-  [class*="col-"].offset-lg-3 {
+  [class^="col-"].offset-lg-3 {
     margin-left: 25%; }
-  [class*="col-"].offset-lg-4 {
+  [class^="col-"].offset-lg-4 {
     margin-left: 33.33333%; }
-  [class*="col-"].offset-lg-5 {
+  [class^="col-"].offset-lg-5 {
     margin-left: 41.66667%; }
-  [class*="col-"].offset-lg-6 {
+  [class^="col-"].offset-lg-6 {
     margin-left: 50%; }
-  [class*="col-"].offset-lg-7 {
+  [class^="col-"].offset-lg-7 {
     margin-left: 58.33333%; }
-  [class*="col-"].offset-lg-8 {
+  [class^="col-"].offset-lg-8 {
     margin-left: 66.66667%; }
-  [class*="col-"].offset-lg-9 {
+  [class^="col-"].offset-lg-9 {
     margin-left: 75%; }
-  [class*="col-"].offset-lg-10 {
+  [class^="col-"].offset-lg-10 {
     margin-left: 83.33333%; }
-  [class*="col-"].offset-lg-11 {
+  [class^="col-"].offset-lg-11 {
     margin-left: 91.66667%; }
-  [class*="col-"].offset-lg-12 {
+  [class^="col-"].offset-lg-12 {
     margin-left: 100%; } }
 
 @media screen and (min-width: 1025px) {
   .row {
     padding-left: 10px;
     padding-right: 10px; }
-  .row > [class*="col-"] > .row {
+  .row > [class^="col-"] > .row {
     margin-left: -20px;
     margin-right: -20px; }
   .row > .row {
     margin-left: -10px;
     margin-right: -10px; }
-  [class*="col-"] {
+  [class^="col-"] {
     padding-left: 10px;
     padding-right: 10px; }
   .col-xl-1 {
@@ -295,27 +295,27 @@
 @media screen and (min-width: 1025px) {
   .hide-for-xl {
     display: none !important; }
-  [class*="col-"].offset-xl-1 {
+  [class^="col-"].offset-xl-1 {
     margin-left: 8.33333%; }
-  [class*="col-"].offset-xl-2 {
+  [class^="col-"].offset-xl-2 {
     margin-left: 16.66667%; }
-  [class*="col-"].offset-xl-3 {
+  [class^="col-"].offset-xl-3 {
     margin-left: 25%; }
-  [class*="col-"].offset-xl-4 {
+  [class^="col-"].offset-xl-4 {
     margin-left: 33.33333%; }
-  [class*="col-"].offset-xl-5 {
+  [class^="col-"].offset-xl-5 {
     margin-left: 41.66667%; }
-  [class*="col-"].offset-xl-6 {
+  [class^="col-"].offset-xl-6 {
     margin-left: 50%; }
-  [class*="col-"].offset-xl-7 {
+  [class^="col-"].offset-xl-7 {
     margin-left: 58.33333%; }
-  [class*="col-"].offset-xl-8 {
+  [class^="col-"].offset-xl-8 {
     margin-left: 66.66667%; }
-  [class*="col-"].offset-xl-9 {
+  [class^="col-"].offset-xl-9 {
     margin-left: 75%; }
-  [class*="col-"].offset-xl-10 {
+  [class^="col-"].offset-xl-10 {
     margin-left: 83.33333%; }
-  [class*="col-"].offset-xl-11 {
+  [class^="col-"].offset-xl-11 {
     margin-left: 91.66667%; }
-  [class*="col-"].offset-xl-12 {
+  [class^="col-"].offset-xl-12 {
     margin-left: 100%; } }
