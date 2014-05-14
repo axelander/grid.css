@@ -70,7 +70,7 @@ $sizes:
 
   // Hide for default
   $smallest: nth($sizes, 1);
-  @media screen and (max-width: #{nth($smallest, 1)}) {
+  @media screen and (max-width: #{nth($smallest, 1) - 1}) {
     .hide {
       display: none;
     }
