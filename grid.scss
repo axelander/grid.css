@@ -24,19 +24,19 @@ $sizes:
   (
     641px,                            // Min-width
     768px,                            // Max-width
-    md,                               // Prefix
+    "md",                             // Prefix
     10px                              // Gutter
   ),
   (
     769px,                            // Min-width
     1024px,                           // Max-width
-    lg,                               // Prefix
+    "lg",                             // Prefix
     20px                              // Gutter
   ),
   (
     1025px,                           // Min-width
     false,                            // Max-width
-    xl,                               // Prefix
+    "xl",                             // Prefix
     20px                              // Gutter
   ) !default;
 
@@ -52,7 +52,7 @@ $sizes:
     } @else {
       $str: #{$prefix}-#{$i};
     }
-    [class^="col-"].offset-#{$str} {
+    [class^="span-"].offset-#{$str} {
       margin-left: percentage($i / $column-count);
     }
   }
@@ -66,9 +66,24 @@ $sizes:
       $str: #{$prefix}-#{$i};
     }
     // Width
-    .col-#{$str} {
+    .span-#{$str} {
       width: percentage($i / $column-count);
     }
+  }
+}
+
+/**
+ * Create classes to be able to reset floats
+ */
+@mixin __create-column-reset-class($prefix) {
+  @if $prefix == "" {
+    $str: clear;
+  } @else {
+    $str: #{$prefix}-clear;
+  }
+  // Width
+  .span-#{$str} {
+    clear: left;
   }
 }
 
@@ -100,7 +115,7 @@ $sizes:
   padding-right: floor($default-gutter / 2);
 }
 
-[class^="col-"] {
+[class^="span-"] {
   float: left;
   padding-left: floor($default-gutter / 2);
   padding-right: floor($default-gutter / 2);
@@ -109,7 +124,7 @@ $sizes:
 }
 
 // Reset nested rows
-.row > [class^="col-"] > .row {
+.row > [class^="span-"] > .row {
   margin-left: -$default-gutter;
   margin-right: -$default-gutter;
 }
@@ -123,6 +138,8 @@ $sizes:
 
 // Setup default columns (smallest screens)
 @include __create-columns("");
+// Setup default columns reset classes
+@include __create-column-reset-class("");
 
 $smallest: nth($sizes, 1);
 $max-width: #{nth($smallest, 1) - 1};
@@ -155,7 +172,7 @@ $max-width: #{nth($smallest, 1) - 1};
     }
 
     // Reset nested rows
-    .row > [class^="col-"] > .row {
+    .row > [class^="span-"] > .row {
       margin-left: -$gutter;
       margin-right: -$gutter;
     }
@@ -165,12 +182,16 @@ $max-width: #{nth($smallest, 1) - 1};
       margin-right: -$default-gutter; 
     }
 
-    [class^="col-"] {
+    [class^="span-"] {
       padding-left: floor($gutter / 2);
       padding-right: floor($gutter / 2);  
     }
-
+    
+    // Create columns
     @include __create-columns($prefix);
+    
+    // Setup reset classes for size
+    @include __create-column-reset-class($prefix);
     
     // Hide for size and up
     .hide-for-#{$prefix}-up {
