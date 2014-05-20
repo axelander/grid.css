@@ -53,6 +53,7 @@ $sizes:
   used in the applications sass.
 \* =========================================================== */
 @mixin __create-offset-classes($prefix) {
+  $str: "";
   @for $i from 1 through $column-count {
     @if $prefix == "" {
       $str: #{$i};
@@ -66,6 +67,7 @@ $sizes:
 }
 
 @mixin __create-columns($prefix) {
+  $str: "";
   @for $i from 1 through $column-count {
     @if $prefix == "" {
       $str: #{$i};
@@ -83,6 +85,7 @@ $sizes:
  * Create classes to be able to reset floats
  */
 @mixin __create-column-reset-class($prefix) {
+  $str: "";
   @if $prefix == "" {
     $str: clear;
   } @else {
