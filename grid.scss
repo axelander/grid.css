@@ -56,11 +56,11 @@ $sizes:
   $str: "";
   @for $i from 1 through $column-count {
     @if $prefix == "" {
-      $str: #{$i};
+      $str: "offset-#{$i}";
     } @else {
-      $str: #{$prefix}-#{$i};
+      $str: "#{$prefix}-offset-#{$i}";
     }
-    [class^="col-"].offset-#{$str} {
+    .col-#{$str} {
       margin-left: percentage($i / $column-count);
     }
   }
@@ -155,6 +155,8 @@ $sizes:
 
 // Setup default columns (smallest screens)
 @include __create-columns("");
+// Create offset classes
+@include __create-offset-classes("");
 // Setup default columns reset classes
 @include __create-column-reset-class("");
 
@@ -211,6 +213,9 @@ $max-width: #{nth($smallest, 1) - 1};
     // Create columns
     @include __create-columns($prefix);
     
+    // Create offset classes
+    @include __create-offset-classes($prefix);
+    
     // Setup reset classes for size
     @include __create-column-reset-class($prefix);
     
@@ -228,7 +233,6 @@ $max-width: #{nth($smallest, 1) - 1};
         display: none !important;
       }
       
-      @include __create-offset-classes($prefix);
     }
   } @else {
     @media screen and (min-width: #{$min-width}) and (max-width: #{$max-width}) {
@@ -236,7 +240,6 @@ $max-width: #{nth($smallest, 1) - 1};
         display: none !important;
       }
       
-      @include __create-offset-classes($prefix);
     }
   }
 }
