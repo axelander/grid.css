@@ -205,9 +205,9 @@ $max-width: #{nth($smallest, 1) - 1};
       margin-right: -$gutter;
     }
 
-    .row > .row {
-      margin-left: -$default-gutter;
-      margin-right: -$default-gutter; 
+    .row * .row {
+      margin-left: -$gutter;
+      margin-right: -$gutter;  
     }
 
     [class*="col-"] {
