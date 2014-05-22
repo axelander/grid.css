@@ -148,7 +148,7 @@ $sizes:
 
 // This is a just precaution. Handles rows within rows
 // that are not wrapped in a column.
-.row .row {
+.row > .row {
   margin-left: -$default-gutter;
   margin-right: -$default-gutter; 
 }
