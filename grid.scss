@@ -232,13 +232,7 @@ $max-width: #{nth($smallest, 1) - 1};
   
   // Hide for specific size
   @if $max-width == false {
-    // The largest size doesn't have an -up class
-    @media screen and (min-width: #{$min-width}) {
-      .hide-for-#{$prefix} {
-        display: none !important;
-      }
-      
-    }
+    // The largest size doesn't have an max-width so we'll skip .hide-for-<LARGEST> and use .hide-for-<LARGEST>-up instead
   } @else {
     @media screen and (min-width: #{$min-width}) and (max-width: #{$max-width}) {
       .hide-for-#{$prefix} {
