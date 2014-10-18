@@ -1,5 +1,7 @@
-.row {
+@import "grid";
 
+.row {
+  @include row();
 }
 
 .box {

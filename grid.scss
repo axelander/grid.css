@@ -11,36 +11,28 @@
 
 
 
-
 /* =========================================================== *\
   OPTIONS
 \* =========================================================== */
-$grid-max-width   : 1240px !default; // The grid width, including gutter
+$grid-max-width        : 1240px !default; // The grid width, including gutter
 // Gutters
-$default-gutter   : 10px !default;
-
+$grid-default-gutter   : 10px !default;
 // Columns
-$column-count     : 12 !default;
+$grid-column-count     : 12 !default;
 
 // Map of sizes
-$sizes: 
+$grid-sizes: 
   (
     641px,                            // Min-width
     768px,                            // Max-width
-    "md",                             // Prefix
-    10px                              // Gutter
+    10px,                             // Gutter
+    "md"                              // Prefix
   ),
   (
     769px,                            // Min-width
     1024px,                           // Max-width
-    "lg",                             // Prefix
-    20px                              // Gutter
-  ),
-  (
-    1025px,                           // Min-width
-    false,                            // Max-width
-    "xl",                             // Prefix
-    20px                              // Gutter
+    20px,                             // Gutter
+    "lg"                              // Prefix
   ) !default;
 
 
@@ -48,66 +40,14 @@ $sizes:
 
 
 /* =========================================================== *\
-  MIXINS
-  Note: Mixins prefixed with __ is meant to be private and not 
-  used in the applications sass.
+  PLACEHOLDERS
 \* =========================================================== */
-@mixin __create-offset-classes($prefix) {
-  $str: "";
-  @for $i from 1 through $column-count {
-    @if $prefix == "" {
-      $str: "offset-#{$i}";
-    } @else {
-      $str: "#{$prefix}-offset-#{$i}";
-    }
-    .col-#{$str} {
-      margin-left: percentage($i / $column-count);
-    }
-  }
-}
-
-@mixin __create-columns($prefix) {
-  $str: "";
-  @for $i from 1 through $column-count {
-    @if $prefix == "" {
-      $str: #{$i};
-    } @else {
-      $str: #{$prefix}-#{$i};
-    }
-    // Width
-    .col-#{$str} {
-      width: percentage($i / $column-count);
-    }
-  }
-}
-
-/**
- * Create classes to be able to reset floats
- */
-@mixin __create-column-reset-class($prefix) {
-  $str: "";
-  @if $prefix == "" {
-    $str: clear;
-  } @else {
-    $str: #{$prefix}-clear;
-  }
-  // Width
-  .col-#{$str} {
-    clear: left;
-  }
-}
-
-
-
-
-
-/* =========================================================== *\
-  COMMON
-\* =========================================================== */
-.row {
+%row {
   margin: 0 auto;
-  max-width: $grid-max-width;
   *zoom: 1;
+  max-width: $grid-max-width;
+  padding-left: floor($grid-default-gutter / 2);
+  padding-right: floor($grid-default-gutter / 2);
 
   &:before,
   &:after {
@@ -118,63 +58,36 @@ $sizes:
   &:after {
     clear: both;
   }
+
+  @each $size in $grid-sizes {
+    $min-width: nth($size, 1);
+    $gutter: nth($size, 3);
+    @media screen and (min-width: #{$min-width}) {
+      padding-left: floor($gutter / 2);
+      padding-right: floor($gutter / 2);
+    }
+  }
 }
 
-
-
-
-
-/* =========================================================== *\
-  DEFAULT (smallest)
-\* =========================================================== */
-.row {
-  padding-left: floor($default-gutter / 2);
-  padding-right: floor($default-gutter / 2);
-}
-
-[class*="col-"] {
+%col {
   float: left;
-  padding-left: floor($default-gutter / 2);
-  padding-right: floor($default-gutter / 2);
+  padding-left: floor($grid-default-gutter / 2);
+  padding-right: floor($grid-default-gutter / 2);
   display: block;
   width: 100%;
 }
 
-// Reset nested rows
-.row > [class*="col-"] > .row {
-  margin-left: -$default-gutter;
-  margin-right: -$default-gutter;
-}
-
-// This is a just precaution. Handles rows within rows
-// that are not wrapped in a column.
-.row > .row {
-  margin-left: -$default-gutter;
-  margin-right: -$default-gutter; 
-}
-
-.row * .row {
-  margin-left: -$default-gutter;
-  margin-right: -$default-gutter;  
-}
-
-// Setup default columns (smallest screens)
-@include __create-columns("");
-// Create offset classes
-@include __create-offset-classes("");
-// Setup default columns reset classes
-@include __create-column-reset-class("");
-
-$smallest: nth($sizes, 1);
-$max-width: #{nth($smallest, 1) - 1};
-@media screen and (max-width: $max-width) {
-  // Hide for default (smallest)
-  .hide {
-    display: none;
+%row-reset {
+  margin-left: -$grid-default-gutter;
+  margin-right: -$grid-default-gutter;
+  @each $size in $grid-sizes {
+    $min-width: nth($size, 1);
+    $gutter: nth($size, 3);
+    @media screen and (min-width: #{$min-width}) {
+      margin-left: -$gutter;
+      margin-right: -$gutter;
+    }
   }
-  
-  // Create offset classes for default
-  @include __create-offset-classes("");
 }
 
 
@@ -182,63 +95,33 @@ $max-width: #{nth($smallest, 1) - 1};
 
 
 /* =========================================================== *\
-  SIZES
+  MIXINS
 \* =========================================================== */
-// Create all different sizes
-@each $size in $sizes {
-  $min-width: nth($size, 1);
-  $max-width: nth($size, 2);
-  $prefix: nth($size, 3);
-  $gutter: nth($size, 4);
+@mixin row() {
+  @extend %row;
+}
 
-  @media screen and (min-width: #{$min-width}) {
-
-    // Rows
-    .row {
-      padding-left: floor($gutter / 2);
-      padding-right: floor($gutter / 2);
-    }
-
-    // Reset nested rows
-    .row > [class*="col-"] > .row {
-      margin-left: -$gutter;
-      margin-right: -$gutter;
-    }
-
-    .row * .row {
-      margin-left: -$gutter;
-      margin-right: -$gutter;  
-    }
-
-    [class*="col-"] {
-      padding-left: floor($gutter / 2);
-      padding-right: floor($gutter / 2);  
-    }
-    
-    // Create columns
-    @include __create-columns($prefix);
-    
-    // Create offset classes
-    @include __create-offset-classes($prefix);
-    
-    // Setup reset classes for size
-    @include __create-column-reset-class($prefix);
-    
-    // Hide for size and up
-    .hide-for-#{$prefix}-up {
-      display: none !important;
-    }
-  } 
-  
-  // Hide for specific size
-  @if $max-width == false {
-    // The largest size doesn't have an max-width so we'll skip .hide-for-<LARGEST> and use .hide-for-<LARGEST>-up instead
+@mixin col($span: false) {
+  @if not $span {
+    width: 100%;
   } @else {
-    @media screen and (min-width: #{$min-width}) and (max-width: #{$max-width}) {
-      .hide-for-#{$prefix} {
+    width: percentage($span / $grid-column-count);
+  }
+}
+
+@mixin offset($span: false) {
+  margin-left: percentage($i / $column-count);
+}
+
+@mixin hide-for($prefix: '') {
+  // Find settings for size with prefix
+  @for $i from 1 through length($grid-sizes) {
+    @if $prefix == nth(nth($grid-sizes, $i), 4) {
+      $min-width: nth(nth($grid-sizes, $i), 1);
+      $max-width: nth(nth($grid-sizes, $i), 2);
+      @media screen and (min-width: #{$min-width}) and (max-width: #{$max-width}) {
         display: none !important;
       }
-      
     }
   }
 }
