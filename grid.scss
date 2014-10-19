@@ -19,6 +19,9 @@ $grid-max-width        : 1240px !default; // The grid width, including gutter
 $grid-default-gutter   : 10px !default;
 // Columns
 $grid-column-count     : 12 !default;
+// Include html classes?
+$grid-html-classes          : false !default;
+$grid-html-column-prefix    : 'col' !default;
 
 // Map of sizes
 $grid-sizes: 
@@ -74,7 +77,14 @@ $grid-sizes:
   padding-left: floor($grid-default-gutter / 2);
   padding-right: floor($grid-default-gutter / 2);
   display: block;
-  width: 100%;
+  @each $size in $grid-sizes {
+    $min-width: nth($size, 1);
+    $gutter: nth($size, 3);
+    @media screen and (min-width: #{$min-width}) {
+      padding-left: floor($gutter / 2);
+      padding-right: floor($gutter / 2);
+    }
+  }
 }
 
 %row-reset {
@@ -101,27 +111,124 @@ $grid-sizes:
   @extend %row;
 }
 
-@mixin col($span: false) {
-  @if not $span {
-    width: 100%;
+@mixin row-reset() {
+  @extend %row-reset;
+}
+
+@mixin col($span: '', $prefix: '') {
+  @extend %col;
+
+  @if $span == '' {
+    $span: $grid-column-count;
+  }
+
+  @if $prefix != '' {
+    $options: get-options-by-prefix($prefix);
+    $min-width: nth($options, 1);
+    // Wrap width in mq
+    @media screen and (min-width: #{$min-width}) {
+      width: percentage($span / $grid-column-count);
+    }
   } @else {
     width: percentage($span / $grid-column-count);
   }
 }
 
-@mixin offset($span: false) {
-  margin-left: percentage($i / $column-count);
+@mixin offset($span: '', $prefix: '') {
+  @if $span == '' {
+    @return;
+  }
+  
+  @if $prefix != '' {
+    $options: get-options-by-prefix($prefix);
+    $min-width: nth($options, 1);
+    @media screen and (min-width: #{$min-width}) {
+      margin-left: percentage($span / $grid-column-count);
+    }
+  } @else {
+    margin-left: percentage($span / $grid-column-count);
+  }
 }
 
 @mixin hide-for($prefix: '') {
-  // Find settings for size with prefix
+  $settings: get-options-by-prefix($prefix);
+  $min-width: nth($settings, 1);
+  $max-width: nth($settings, 2);
+  @media screen and (min-width: #{$min-width}) and (max-width: #{$max-width}) {
+    display: none !important;
+  }
+}
+
+
+
+
+/* =========================================================== *\
+  FUNCTIONS
+\* =========================================================== */
+@function get-options-by-prefix($prefix: '') {
   @for $i from 1 through length($grid-sizes) {
     @if $prefix == nth(nth($grid-sizes, $i), 4) {
-      $min-width: nth(nth($grid-sizes, $i), 1);
-      $max-width: nth(nth($grid-sizes, $i), 2);
-      @media screen and (min-width: #{$min-width}) and (max-width: #{$max-width}) {
-        display: none !important;
+      @return nth($grid-sizes, $i);
+    }
+  }
+}
+
+
+
+
+/* =========================================================== *\
+  INCLUDE CLASSES?
+\* =========================================================== */
+@if $grid-html-classes == true {
+  // Create row class
+  .row {
+    @include row();
+  }
+
+  .row > * > .row,
+  .row .row {
+    @include row-reset();
+  }
+  
+
+  // Setup column classes
+  [class*="#{$grid-html-column-prefix}-"] {
+    @include col();
+  }
+
+
+  @for $i from 1 through $grid-column-count {
+    // Smallest column classes
+    .#{$grid-html-column-prefix}-#{$i} {
+      @include col($i);
+    }
+    
+    // Smallest offset classes
+    .#{$grid-html-column-prefix}-offset-#{$i} {
+      @include offset($i);
+    }
+
+    @each $size in $grid-sizes {
+      $prefix: nth($size, 4);
+
+      // Column classes
+      .#{$grid-html-column-prefix}-#{$prefix}-#{$i} {
+        @include col($i, $prefix);
       }
+      
+      // Column offset classes
+      .#{$grid-html-column-prefix}-#{$prefix}-offset-#{$i} {
+        @include col($i, $prefix);
+      }
+
+    }
+
+  }
+
+  @each $size in $grid-sizes {
+    $prefix: nth($size, 4);
+    .hide-for-#{$prefix} {
+      @include hide-for($prefix);
     }
   }
 }

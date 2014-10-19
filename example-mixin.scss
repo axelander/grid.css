@@ -1,0 +1,31 @@
+@import "grid";
+
+.inner {
+  height: 50px;
+  border-radius: 10px;
+  background: #ddd;
+  margin-top: 10px !important;
+  margin-bottom: 10px !important;
+}
+
+.row {
+  @include row();
+}
+
+.col-3 {
+  @include col(6);
+  @include col(3, 'md');
+  @include col(2, 'lg');
+}
+
+.col-6 {
+  @include col(6);
+}
+
+.row > [class*='col-'] > .row {
+  @include row-reset();
+}
+
+.offset {
+  @include offset(3, 'md');
+}

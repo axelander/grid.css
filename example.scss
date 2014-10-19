@@ -1,8 +1,8 @@
+$grid-html-classes: true;
+
 @import "grid";
 
-.row {
-  @include row();
-}
+
 
 .box {
   height: 50px;
