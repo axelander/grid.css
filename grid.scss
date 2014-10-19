@@ -185,8 +185,9 @@ $grid-sizes:
     @include row();
   }
 
-  .row > * > .row,
-  .row .row {
+  .row > [class*="#{$grid-html-column-prefix}-"] > .row,
+  .row > .row,
+  .row * .row {
     @include row-reset();
   }
   
